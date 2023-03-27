@@ -108,6 +108,13 @@ int main(void)
 	sprintf(DataChar,"\r\n\tBuild: %s. Time: %s.\r\n" , DATE_as_int_str , TIME_as_int_str ) ;
 	UartDebug(DataChar);
 	ST7789_Init();
+
+
+	//ST7789_Test();
+	sprintf(DataChar,"End INIT\r\n" );	UartDebug(DataChar);
+	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
+
+	ST7789_DrawRectangle(10, 15, 20, 30, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */

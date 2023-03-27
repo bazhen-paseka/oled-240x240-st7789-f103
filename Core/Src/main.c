@@ -107,14 +107,39 @@ int main(void)
 	#define 	TIME_as_int_str 	(__TIME__)
 	sprintf(DataChar,"\r\n\tBuild: %s. Time: %s.\r\n" , DATE_as_int_str , TIME_as_int_str ) ;
 	UartDebug(DataChar);
+	HAL_Delay(100);
 	ST7789_Init();
 
+		//#define WHITE       0xFFFF
+		//#define BLACK       0x0000
+		//#define BLUE        0x001F
+		//#define RED         0xF800
+		//#define MAGENTA     0xF81F
+		//#define GREEN       0x07E0
+		//#define CYAN        0x7FFF
+		//#define YELLOW      0xFFE0
+		//#define GRAY        0X8430
+		//#define BRED        0XF81F
+		//#define GRED        0XFFE0
+		//#define GBLUE       0X07FF
+		//#define BROWN       0XBC40
+		//#define BRRED       0XFC07
+		//#define DARKBLUE    0X01CF
+		//#define LIGHTBLUE   0X7D7C
+		//#define GRAYBLUE    0X5458
+		//
+		//#define LIGHTGREEN  0X841F
+		//#define LGRAY       0XC618
+		//#define LGRAYBLUE   0XA651
+		//#define LBBLUE      0X2B12
 
-	//ST7789_Test();
+
 	sprintf(DataChar,"End INIT\r\n" );	UartDebug(DataChar);
-	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
+	ST7789_Test();
+	//ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
+	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GREEN, BLACK);
 
-	ST7789_DrawRectangle(10, 15, 20, 30, 0);
+	ST7789_DrawRectangle(20, 25, 120, 130, BROWN);
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -109,7 +109,7 @@ int main(void)
 	#define 	TIME_as_int_str 	(__TIME__)
 	sprintf(DataChar,"\r\n\tBuild: %s. Time: %s.\r\n" , DATE_as_int_str , TIME_as_int_str ) ;
 	UartDebug(DataChar);
-	HAL_Delay(100);
+	//HAL_Delay(500);
 	ST7789_Init();
 
 		//#define WHITE       0xFFFF
@@ -141,7 +141,7 @@ int main(void)
 	//ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
 	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GREEN, BLACK);
 
-	ST7789_DrawRectangle(20, 25, 120, 130, BROWN);
+	ST7789_DrawFilledRectangle(20, 50, 200, 120, BROWN);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -151,7 +151,7 @@ int main(void)
 		sprintf(DataChar,"%02d ", counter++ ) ;
 		UartDebug(DataChar);
 		//ST7735_WriteString(10, 85, DataChar, Font_16x26 , ST7735_YELLOW, ST7735_BLUE);
-		ST7789_WriteString(10, 150, DataChar, Font_16x26, GREEN, BLACK);
+		ST7789_WriteString(20, 180, DataChar, Font_16x26, GREEN, BLACK);
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
 

@@ -24,7 +24,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+	#include "stdio.h"
+	#include <string.h>
+	#include "st7789.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -34,6 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+	#define 	UART_DEBUG 			&huart1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -44,13 +47,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+	char 		DataChar[0xFF] = {0};
+	int 		counter 		= 0	;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void UartDebug(char* _text) ;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -89,13 +93,31 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+	#define SOFT_VERSION	333
+	int soft_version_arr_int[3];
+	soft_version_arr_int[0] = ((SOFT_VERSION) / 100) ;
+	soft_version_arr_int[1] = ((SOFT_VERSION) /   10) %10 ;
+	soft_version_arr_int[2] = ((SOFT_VERSION)       ) %10 ;
 
+	sprintf(DataChar,"\r\n\r\n\t OLED 240x240 v%d.%d.%d " ,
+			soft_version_arr_int[0] , soft_version_arr_int[1] , soft_version_arr_int[2] );
+	UartDebug(DataChar);
+
+	#define 	DATE_as_int_str 	(__DATE__)
+	#define 	TIME_as_int_str 	(__TIME__)
+	sprintf(DataChar,"\r\n\tBuild: %s. Time: %s.\r\n" , DATE_as_int_str , TIME_as_int_str ) ;
+	UartDebug(DataChar);
+	ST7789_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		sprintf(DataChar,"%02d ", counter++ ) ;
+		UartDebug(DataChar);
+		//ST7735_WriteString(10, 85, DataChar, Font_16x26 , ST7735_YELLOW, ST7735_BLUE);
+		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -143,7 +165,9 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void UartDebug(char* _text) {
+	HAL_UART_Transmit(UART_DEBUG, (uint8_t*)_text, strlen(_text), 100);
+} //**************************************************************************
 /* USER CODE END 4 */
 
 /**

@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -90,6 +91,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -135,7 +137,7 @@ int main(void)
 
 
 	sprintf(DataChar,"End INIT\r\n" );	UartDebug(DataChar);
-	ST7789_Test();
+	//ST7789_Test();
 	//ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
 	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GREEN, BLACK);
 
@@ -149,6 +151,7 @@ int main(void)
 		sprintf(DataChar,"%02d ", counter++ ) ;
 		UartDebug(DataChar);
 		//ST7735_WriteString(10, 85, DataChar, Font_16x26 , ST7735_YELLOW, ST7735_BLUE);
+		ST7789_WriteString(10, 150, DataChar, Font_16x26, GREEN, BLACK);
 		HAL_Delay(1000);
     /* USER CODE END WHILE */
 
